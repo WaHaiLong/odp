@@ -24,7 +24,7 @@ jobs:
     - name: Run tests
       run: npm test
 
-  deploy-to-server:
+  deploy:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
@@ -32,22 +32,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Deploy to Server
-      uses: appleboy/scp-action@v0.1.4
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        source: "./"
-        target: ${{ secrets.TARGET_PATH }}
-        strip_components: 1
-        exclude:
-          - '.git/*'
-          - 'node_modules/*'
-          - '.github/*'
-          - '.gitignore'
-          - 'README.md'
-          - 'package.json'
-          - 'package-lock.json'
-          - 'test/*'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
