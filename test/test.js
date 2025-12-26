@@ -23,4 +23,12 @@ describe('Simple Webpage', () => {
     expect(htmlContent).toContain('<body>');
     expect(htmlContent).toContain('</body>');
   });
+  
+  test('HTML file includes visit counter functionality', () => {
+    const htmlContent = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+    expect(htmlContent).toContain('localStorage.getItem');
+    expect(htmlContent).toContain('visitCount');
+    expect(htmlContent).toContain('访问次数');
+    expect(htmlContent).toContain('Google Analytics');
+  });
 });

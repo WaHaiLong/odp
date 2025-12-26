@@ -27,7 +27,41 @@
             color: #666;
             line-height: 1.6;
         }
+        .counter {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            font-weight: bold;
+        }
     </style>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+        
+        // 简单访问计数器
+        document.addEventListener('DOMContentLoaded', function() {
+            // 从localStorage获取访问次数
+            let visitCount = localStorage.getItem('visitCount');
+            
+            if (visitCount === null) {
+                visitCount = 0;
+            }
+            
+            visitCount++;
+            localStorage.setItem('visitCount', visitCount);
+            
+            // 显示访问次数
+            const counterElement = document.createElement('div');
+            counterElement.className = 'counter';
+            counterElement.innerHTML = `访问次数: ${visitCount}`;
+            document.querySelector('.container').appendChild(counterElement);
+        });
+    </script>
 </head>
 <body>
     <div class="container">
